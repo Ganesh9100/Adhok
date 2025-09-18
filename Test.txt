@@ -110,3 +110,14 @@ Output:
   "customer_agent_utterance_keywords": ["disconnect", "line", "death", "deceased", "family member", "bereavement"],
   "summary": ["disconnect", "line", "death", "deceased", "family member", "bereavement"]
 }
+
+
+SELECT COUNT(*)
+FROM call_logs
+WHERE LOWER(utterance) LIKE '%netflix%'
+  AND (
+       LOWER(utterance) LIKE '%issue%' 
+    OR LOWER(utterance) LIKE '%not working%' 
+    OR LOWER(utterance) LIKE '%buffering%' 
+    OR LOWER(utterance) LIKE '%problem%'
+  );
