@@ -121,3 +121,25 @@ WHERE LOWER(utterance) LIKE '%netflix%'
     OR LOWER(utterance) LIKE '%buffering%' 
     OR LOWER(utterance) LIKE '%problem%'
   );
+
+
+
+“If the user query is generic and does not mention any specific context (like issue, problem, not working, etc.), leave the secondary_keywords list empty and only populate anchor_keywords.”
+
+
+
+That way:
+
+For “How many calls came in asking about Netflix” →
+
+{
+  "anchor_keywords": ["netflix"],
+  "secondary_keywords": []
+}
+
+For “How many calls had Netflix buffering issues” →
+
+{
+  "anchor_keywords": ["netflix"],
+  "secondary_keywords": ["buffering", "issue"]
+}
