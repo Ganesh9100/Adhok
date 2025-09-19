@@ -143,3 +143,142 @@ For “How many calls had Netflix buffering issues” →
   "anchor_keywords": ["netflix"],
   "secondary_keywords": ["buffering", "issue"]
 }
+
+
+
+
+
+
+
+
+
+
+Additional Unique Utilization Scenarios
+
+4. Multi-Intent Hybrid
+
+Sometimes the user query spans two or more different L1/L2 anchors.
+
+Example: “How many calls came in asking about billing or payment problems?”
+
+Step 1: Filter where l1 IN ('billing','payment')
+
+Step 2: Add utterance search for edge cases (e.g., “bill too high, unable to pay”).
+
+
+
+
+---
+
+5. Sentiment-Driven Queries
+
+When the user asks not just “how many,” but “how customers feel.”
+
+Example: “How do customers feel when their payment fails?”
+
+Step 1: Filter with l2 = payment failure
+
+Step 2: Extract transcript → sentiment analysis → aggregate.
+
+Utterance search helps refine context (e.g., “gateway issue” vs “card declined”).
+
+
+
+
+---
+
+6. Emerging Topics (no taxonomy yet)
+
+When taxonomy doesn’t cover a new domain/brand/problem.
+
+Example: “How many calls mentioned UPI?”
+
+Step 1: No L2 anchor available.
+
+Step 2: Utterance/summary search for keyword = upi.
+
+Later → feed back into taxonomy as new L2.
+
+
+
+
+---
+
+7. Cross-Intent Condition
+
+When intent + a state/condition is needed.
+
+Example: “How many customers complained about payment failure after multiple attempts?”
+
+Step 1: Filter with l2 = payment failure
+
+Step 2: Utterance/summary search for second attempt, tried again, multiple times.
+
+
+
+
+---
+
+8. Customer Journey Queries
+
+When the question is about a sequence of events.
+
+Example: “How many customers first asked about billing and later about payment?”
+
+Step 1: Identify calls tagged as both l1 = billing and l1 = payment.
+
+Step 2: Verify order using transcript/summary → utterance search required.
+
+
+
+
+---
+
+9. Entity-Specific Issues
+
+When the query involves a brand/product + problem type.
+
+Example: “How many calls came in about Jio recharge failure?”
+
+Step 1: Anchor on l2 = payment failure
+
+Step 2: Utterance search for “Jio”.
+
+
+
+
+---
+
+10. Policy / Compliance Check
+
+When the query is about regulatory or sensitive terms not tagged in L1/L2.
+
+Example: “How many customers mentioned TRAI complaint?”
+
+Needs utterance search only.
+
+
+
+
+---
+
+📌 Pointers: Why Utterance/Summary Search Matters
+
+1. Covers leakage – Taxonomy (L1/L2) isn’t perfect; some calls slip through.
+
+
+2. Adds nuance – “Disconnect line” ≠ “disconnect due to death.” Utterance adds reason/context.
+
+
+3. Captures emerging topics – New brands, slang, channels (e.g., “UPI stuck,” “PhonePe issue”) won’t exist in taxonomy.
+
+
+4. Enables ad-hoc queries – Business users ask questions in natural language that don’t map cleanly to taxonomy.
+
+
+5. Rich answers – You can’t answer “how customers feel” without analyzing the actual words spoken.
+
+
+6. Audit & QA – Helps discover where taxonomy is failing and improve classification coverage.
+
+
