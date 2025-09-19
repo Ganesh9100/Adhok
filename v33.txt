@@ -171,9 +171,9 @@ Expected JSON:
       "death certificate",
       "died"
     ],
-    "user_query": "Compute average sentiment_score from calls_table for calls where l2 is 'disconnect line' and transcript/summary contains any of the search_phrases."
+ "user_query": "Step 1: Select calls from calls_table where l2 = 'disconnect line'. Step 2: From those calls, filter only the ones where transcript or summary contains any of the search_phrases. Step 3: Group the remaining calls by sentiment_score (positive, negative, neutral) and return the count for each category."
   },
-  "explanation": "Anchor to 'disconnect line' and restrict to transcripts mentioning death-related phrases to measure sentiment."
+  "explanation": "Anchor to 'disconnect line' in taxonomy and then restrict to transcripts mentioning death-related phrases, finally return sentiment distribution as counts instead of averages."
 }
 
 Example D — Utilization 3 (pure utterance)
