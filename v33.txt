@@ -147,11 +147,10 @@ Expected JSON:
       "card declined",
       "double charged"
     ],
-    "user_query": "Count calls in calls_table where l2 is one of ['payment failure','make payment'] OR transcript/summary contains any of the search_phrases in the provided mapping."
+    "user_query": "Step 1: Select calls from calls_table where l2 is in ['payment failure','make payment']. UNION Step 2: Select calls from calls_table where l1 and l2 are not related to 'payment' but transcript or summary contains any of the search_phrases. Combine both result sets for final count."
   },
-  "explanation": "User requests broad payment issues; use taxonomy anchors and fallback utterance search to capture mis-tagged calls."
+  "explanation": "User requests broad payment issues; use taxonomy anchors first, then union with utterance-level matches to capture missed or misclassified cases."
 }
-
 Example C — Utilization 2 (anchor + context)
 
 User question:
