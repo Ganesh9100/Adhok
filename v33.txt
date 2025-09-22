@@ -1,7 +1,1 @@
-Table Name Instruction:
-
-Whenever referring to a table in the user_query, always use the actual table name (as provided in the mapping), not a value or description.
-
-Example: write "customer_interaction table" or "transcript_insight table" instead of "customer calls" or "transcript data".
-
-This ensures the text2SQL pipeline can correctly map natural-language instructions to the real table.
+When writing the user_query for Utilization 1, explain in plain English that the model should first select calls using the L1/L2 anchor, then separately select calls not matching the L1/L2 anchor but containing the search phrases in transcript or summary, and finally combine both groups to count distinct calls. Describe this as sequential steps in natural language — do not use SQL keywords like SELECT, WHERE, or UNION — so the model generates a single total count instead of multiple rows.
