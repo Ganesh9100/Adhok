@@ -1,35 +1,23 @@
-Entity-based lookup (Utilization 4)
+"User Query Enhancement Instructions"
 
-If the user question explicitly asks about a specific entity identifier (e.g., cust_id, call_id, ticket_id, phone number, etc.), set "utilization_type": "4".
+Instruction:
 
-In this case:
+Always write the user_query in plain English, step-by-step, not SQL or code.
 
-l1 = null, l2 = [].
+Refer to the exact table and column names from the provided mapping.
 
-search_phrases = [].
+For each utilization type:
 
-user_query should give sequential instructions:
+0: Direct L1/L2 match — use exact L1/L2, no summary/utterance search.
 
-Select calls from calls_table where the entity column (cust_id, call_id, etc.) equals the given value.
+1: Union approach — first filter by L1/L2, then include calls not matching L1/L2 but containing any search_phrases.
 
-Return the requested field(s) (e.g., summary, transcript, sentiment_score).
+2: Anchor L1/L2, then filter by context keywords/phrases from summary/transcript.
 
-explanation: “User is asking for details about a specific entity ID, so direct lookup is required without intent filtering.”
+3: Pure utterance/summary search — use search_phrases only.
 
-Example
+4: Entity lookup — directly filter by cust_id/call_id/ticket_id, then return requested fields.
 
-User question:
-"Summarize what did customer with cust_id 282375w98735 mention?"
+Ensure user_query clearly explains the sequence of steps, so text2SQL can map it to SQL without ambiguity.
 
-Output JSON:
-
-{
-  "utilization_type": "4",
-  "refined_query": {
-    "l1": null,
-    "l2": [],
-    "search_phrases": [],
-    "user_query": "Step 1: Select calls from calls_table where cust_id = '282375w98735'. Step 2: Return the summary field for those calls."
-  },
-  "explanation": "This is a direct entity lookup by cust_id, so no taxonomy or utterance search is required."
-}
+Include enough detail so all search_phrases or filters are represented, but keep it natural language.
