@@ -1,11 +1,7 @@
-Strict Pointer for Utilization 1:
+Table Name Instruction:
 
-Whenever utilization_type = 1, always double-check the sequence:
+Whenever referring to a table in the user_query, always use the actual table name (as provided in the mapping), not a value or description.
 
-Step 1: Filter calls using the exact L1 or L2 anchor (e.g., payment in this example).
+Example: write "customer_interaction table" or "transcript_insight table" instead of "customer calls" or "transcript data".
 
-Step 2: Then separately filter calls where L1 and L2 do NOT match the anchor, and only in this set, search summary or transcript using the search_phrases.
-
-Step 3: Combine both sets (anchor + fallback) using UNION.
-
-⚠️ If the user query skips this order — e.g., directly searching summary/transcript or mixing anchor and phrases — it will produce incorrect or nonsensical results for Utilization 1. Always follow this stepwise filter → fallback → UNION structure.
+This ensures the text2SQL pipeline can correctly map natural-language instructions to the real table.
