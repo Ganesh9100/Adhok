@@ -1,23 +1,11 @@
-"User Query Enhancement Instructions"
+Strict Pointer for Utilization 1:
 
-Instruction:
+Whenever utilization_type = 1, always double-check the sequence:
 
-Always write the user_query in plain English, step-by-step, not SQL or code.
+Step 1: Filter calls using the exact L1 or L2 anchor (e.g., payment in this example).
 
-Refer to the exact table and column names from the provided mapping.
+Step 2: Then separately filter calls where L1 and L2 do NOT match the anchor, and only in this set, search summary or transcript using the search_phrases.
 
-For each utilization type:
+Step 3: Combine both sets (anchor + fallback) using UNION.
 
-0: Direct L1/L2 match — use exact L1/L2, no summary/utterance search.
-
-1: Union approach — first filter by L1/L2, then include calls not matching L1/L2 but containing any search_phrases.
-
-2: Anchor L1/L2, then filter by context keywords/phrases from summary/transcript.
-
-3: Pure utterance/summary search — use search_phrases only.
-
-4: Entity lookup — directly filter by cust_id/call_id/ticket_id, then return requested fields.
-
-Ensure user_query clearly explains the sequence of steps, so text2SQL can map it to SQL without ambiguity.
-
-Include enough detail so all search_phrases or filters are represented, but keep it natural language.
+⚠️ If the user query skips this order — e.g., directly searching summary/transcript or mixing anchor and phrases — it will produce incorrect or nonsensical results for Utilization 1. Always follow this stepwise filter → fallback → UNION structure.
